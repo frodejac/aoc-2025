@@ -12,15 +12,15 @@ pub fn main() !void {
     const part1 = try solvePart1(allocator, input);
     const t1 = try std.time.Instant.now();
 
-    const elapsedPart1 = t1.since(t0) / 1000;
+    const elapsedPart1 = t1.since(t0);
 
-    std.debug.print("Part 1: {d} ({d}us)\n", .{ part1, elapsedPart1 });
+    std.debug.print("Part 1: {d} ({d}ns)\n", .{ part1, elapsedPart1 });
 
     const t2 = try std.time.Instant.now();
     const part2 = try solvePart2(allocator, input);
     const t3 = try std.time.Instant.now();
-    const elapsedPart2 = t3.since(t2) / 1000;
-    std.debug.print("Part 2: {d} ({d}us)\n", .{ part2, elapsedPart2 });
+    const elapsedPart2 = t3.since(t2);
+    std.debug.print("Part 2: {d} ({d}ns)\n", .{ part2, elapsedPart2 });
 }
 
 fn solvePart1(allocator: std.mem.Allocator, input: []const u8) !u64 {
@@ -130,7 +130,7 @@ fn sumInvalidInRange(alloc: std.mem.Allocator, min: u64, max: u64) !u64 {
             }
             const k = d / r; // digit length of the repeating block (e.g. for 123123123 we have d = 9, r = 3, k = 3)
             const m = (std.math.pow(u64, 10, d) - 1) / (std.math.pow(u64, 10, k) - 1);
-            // We want all b such that min <= b*m <= max => min/m <= b <= max/m
+            // We want all b such that min <= b*m <= max, that is min/m <= b <= max/m
             // But b must also be a k-digit number, meaning 10**(k-1) <= b <= 10**k-1
             // This means we can use whatever is largest of 10**(k-1) and ceil(min/m) as the lower bound
             // and the smallest of 10**k-1 and floor(max/m) as the upper bound
