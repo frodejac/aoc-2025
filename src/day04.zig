@@ -140,6 +140,7 @@ fn solvePart2(allocator: std.mem.Allocator, input: []const u8) !u64 {
                 }
             }
         }
+        // If the image stops changing, we're done
         if (sum == 0) {
             break;
         }

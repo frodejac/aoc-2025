@@ -12,15 +12,17 @@ pub fn main() !void {
     const part1 = try solvePart1(allocator, input);
     const t1 = try std.time.Instant.now();
 
-    const elapsedPart1 = t1.since(t0) / 1000;
+    const elapsedPart1 = t1.since(t0);
+    const elapsedPart1Millis: f64 = @as(f64, @floatFromInt(elapsedPart1)) / 1000000.0;
 
-    std.debug.print("Part 1: {d} ({d}us)\n", .{ part1, elapsedPart1 });
+    std.debug.print("Part 1: {d} ({d}ns, {d:.3}ms)\n", .{ part1, elapsedPart1, elapsedPart1Millis });
 
     const t2 = try std.time.Instant.now();
     const part2 = try solvePart2(allocator, input);
     const t3 = try std.time.Instant.now();
-    const elapsedPart2 = t3.since(t2) / 1000;
-    std.debug.print("Part 2: {d} ({d}us)\n", .{ part2, elapsedPart2 });
+    const elapsedPart2 = t3.since(t2);
+    const elapsedPart2Millis: f64 = @as(f64, @floatFromInt(elapsedPart2)) / 1000000.0;
+    std.debug.print("Part 2: {d} ({d}ns, {d:.3}ms)\n", .{ part2, elapsedPart2, elapsedPart2Millis });
 }
 
 fn solvePart1(allocator: std.mem.Allocator, input: []const u8) !i64 {
