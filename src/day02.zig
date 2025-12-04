@@ -3,7 +3,7 @@ const std = @import("std");
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
-    const allocator = gpa.allocator();
+    const allocator = std.heap.c_allocator;
 
     const input = try std.fs.cwd().readFileAlloc(allocator, "input/day02.txt", 1024 * 1024);
     defer allocator.free(input);
